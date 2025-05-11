@@ -7,9 +7,10 @@ def main():
 
     heal_round = 10
 
-    skill = "./skills/shanguangpipi/120.png"
+    skill = "./skills/moyan/70.png"
 
-    monster = get_all_file_paths('./learning_ability/hp/')
+    monster = get_all_file_paths('./learning_ability/md/2')
+    monster_name = '火晶兽'
 
     while True:
 
@@ -33,7 +34,7 @@ def main():
             time.sleep(2)
             do_catch()
             #do_run()
-        elif check_variant(detect_game_text_with_enhancement(save_debug=False)['dialogue']):
+        elif check_variant(detect_dialogue_text_with_enhancement(save_debug=False)['dialogue']):
             time.sleep(2)
             do_catch()
             #do_run()

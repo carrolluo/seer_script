@@ -300,6 +300,29 @@ def detect_game_text_with_enhancement(
         'dialogue': extract_region_dialogue(dialogue_box, 'dialogue')
     }
 
+def detect_dialogue_text_with_enhancement(
+    save_debug=True
+):
+    """
+    尝试多种增强方式对两个区域做 OCR，返回最可信文本。
+    同时保存每种方法的处理图像（以供人工检查）。
+    """
+    save_debug=True
+    with mss.mss() as sct:
+        monitor = sct.monitors[1]
+        screenshot = sct.grab(monitor)
+        img = np.array(screenshot)
+        img = cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+
+    def extract_region_dialogue(region, name):
+        x1, y1, x2, y2 = region
+        roi = img[y1:y2, x1:x2]
+        return recognize_log(roi, save_debug, name)
+    
+    return {
+        'dialogue': extract_region_dialogue(dialogue_box, 'dialogue')
+    }
+
 def check_variant(dialogue):
     if dialogue:
         return True
