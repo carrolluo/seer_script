@@ -7,7 +7,7 @@ def main():
 
     heal_round = 10
 
-    skill = "./skills/leiyi/40.png"
+    skill = "./skills/leiyi/95.png"
 
     monster = get_all_file_paths('./learning_ability/pd/2')
     monster_name = '火晶兽'
