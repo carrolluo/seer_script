@@ -7,8 +7,7 @@ def main():
 
     heal_round = 10
 
-    monster = get_all_file_paths('./learning_ability/pa')
-    monster_name = '火晶兽'
+    monster = get_all_file_paths('./learning_ability/md/2')
 
     while True:
 
@@ -32,7 +31,7 @@ def main():
             if find_image("./special_monster/nier.png", confidence=0.95): 
                 time.sleep(2)
                 do_run()
-            elif find_image("./special_monster/zhake.png" ,confidence= 0.95):
+            elif find_image("./special_monster/zhake.png" ,confidence=0.95):
                 time.sleep(2)
                 do_catch()
                 #do_run()

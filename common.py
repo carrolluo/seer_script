@@ -40,7 +40,7 @@ def move_and_click_func(location):
     pyautogui.mouseUp()
     print(f'click : {location[0], location[1]}')
 
-def find_and_click(images, confidence=0.6, timeout=0.5):
+def find_and_click(images, confidence=0.6, timeout=0.1):
     """
     支持传入多张图像，循环查找并点击，直到找到或超时
     """
