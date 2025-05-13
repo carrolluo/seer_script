@@ -23,6 +23,7 @@ def main():
                 exit(0)  # 或者 return False, 取决于你想退出多彻底
             find_and_click(monster, confidence=0.9) #ex:0.9 #ma: 0.6
             find_and_click("./ui/confirm.png")
+            find_and_click("./ui/x.png", confidence=0.9)
 
         if check_variant(detect_dialogue_text_with_enhancement(save_debug=False)['dialogue']):
             time.sleep(2)
