@@ -11,14 +11,34 @@ from PIL import Image
 import pytesseract
 import datetime
 
-skill_1 = (980, 704)  
-skill_2 = (1097, 704)
-skill_3 = (980, 760)
-skill_4 = (1097, 760)
+monster_location = (965, 530)
+skill1 = (980, 704)
+skill2 = (1097, 704)
+skill3 = (980, 760)
+skill4 = (1097, 760)
+run = (1353, 765)
+switch = (1257, 766)
+second_monster_location = (990, 684)
+first_monster_location = (950, 684)
+go_out = (847, 786)
+in_tower_my_location = (930, 440)
+move_location = (930, 450)
+shake_location = (930, 420)
+heal_location = (973, 390)
 
-perfect_monster_map = {'火晶兽': {16:68, 17:50}, '尼尔': {16:46}, '加格': {17:52, 18:54}, '查斯': {20:64, 21:66}, '扎克': {16:50},
-                       '乌凯': {10:34, 11:36}}
+perfect_monster_map = {'火晶兽': {16:68, 17:50}, '尼尔': {16:46}, '加格': {17:52, 18:54}, '查斯': {20:64, 21:66}, '扎克': {16:50}, '乌凯': {10:34, 11:36}}
 
+def click_func():
+    pyautogui.mouseDown()
+    time.sleep(0.05)  # 停留一点点
+    pyautogui.mouseUp()
+
+def move_and_click_func(location):
+    pyautogui.moveTo(location[0], location[1], duration=0.1)
+    pyautogui.mouseDown()
+    time.sleep(0.05)  # 停留一点点
+    pyautogui.mouseUp()
+    print(f'click : {location[0], location[1]}')
 
 def find_and_click(images, confidence=0.6, timeout=0.5):
     """
@@ -43,7 +63,7 @@ def find_and_click(images, confidence=0.6, timeout=0.5):
             
             if location:
                 x, y = location
-                pyautogui.moveTo(x, y, duration=0.2)
+                pyautogui.moveTo(x, y, duration=0.15)
                 pyautogui.mouseDown()
                 time.sleep(0.05)  # 停留一点点
                 pyautogui.mouseUp()
@@ -94,14 +114,14 @@ def find_image(images, confidence=0.8, timeout=0.5, region=None):
     return False
 
 def confirm_func():
-    while find_and_click("./ui/confirm.png", timeout=0.01) or find_and_click("./ui/confirm2.png", timeout=0.01) or find_and_click("./ui/confirm3.png", timeout=0.01) or find_and_click("./ui/confirm4.png", timeout=0.01): 
-        time.sleep(0.03)
+    while find_and_click("./ui/confirm.png", timeout=0.02) or find_and_click("./ui/confirm2.png", timeout=0.02) or find_and_click("./ui/confirm3.png", timeout=0.02) or find_and_click("./ui/confirm4.png", timeout=0.02): 
+        time.sleep(0.05)
 
         if keyboard.is_pressed('space'):
             print("[检测到空格键，脚本终止]")
             exit(0)  # 或者 return False, 取决于你想退出多彻底  
 
-def do_fight(skill):
+def do_fight():
     print(">>> 进入战斗中...")
 
     # 点击胜利按钮
@@ -110,7 +130,7 @@ def do_fight(skill):
         if keyboard.is_pressed('space'):
             print("[检测到空格键，脚本终止]")
             exit(0)  # 或者 return False, 取决于你想退出多彻底
-        find_and_click(skill, confidence=0.9)
+        move_and_click_func(skill2)
         pyautogui.mouseDown()
         time.sleep(0.05)  # 停留一点点
         pyautogui.mouseUp() 

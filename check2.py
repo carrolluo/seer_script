@@ -1,5 +1,5 @@
 import pyautogui
-
+from common import *
 import cv2
 import numpy as np
 import mss
@@ -12,7 +12,7 @@ dialogue_box=(520, 680, 760, 790)
 
 def check_detection_regions(
     enemy_info_box=(1070, 260, 1095, 290),
-    dialogue_box=(1085, 260, 1105, 290),
+    dialogue_box=(520, 680, 760, 790),
     save_path='region_check.png'
 ):
     """
@@ -42,3 +42,4 @@ def check_detection_regions(
     print(f"[✓] 检查图已保存至: {save_path}")
 
 check_detection_regions()
+print(check_variant(detect_dialogue_text_with_enhancement(save_debug=False)['dialogue']))

@@ -7,8 +7,6 @@ def main():
 
     heal_round = 10
 
-    skill = "./skills/gaiya/100.png"
-
     monster = get_all_file_paths('./learning_ability/pa')
     monster_name = '火晶兽'
 
@@ -26,21 +24,21 @@ def main():
             find_and_click(monster, confidence=0.9) #ex:0.9 #ma: 0.6
             find_and_click("./ui/confirm.png")
 
-        if find_image("./special_monster/nier.png", confidence=0.95): 
-            time.sleep(2)
-            #do_catch()
-            do_run()
-        elif find_image("./special_monster/zhake.png" ,confidence= 0.95):
+        if check_variant(detect_dialogue_text_with_enhancement(save_debug=False)['dialogue']):
             time.sleep(2)
             do_catch()
-            #do_run()
-        elif check_variant(detect_dialogue_text_with_enhancement(save_debug=False)['dialogue']):
-            time.sleep(2)
-            do_catch()
-            #do_run()
         else:
-            #do_catch()
-            do_fight(skill)
+            if find_image("./special_monster/nier.png", confidence=0.95): 
+                time.sleep(2)
+                do_run()
+            elif find_image("./special_monster/zhake.png" ,confidence= 0.95):
+                time.sleep(2)
+                do_catch()
+                #do_run()
+            else:
+                #do_catch()
+                do_fight()
+        print(f"round {count}")
         if count % heal_round == 0:
             do_heal()
         if count == 1000:

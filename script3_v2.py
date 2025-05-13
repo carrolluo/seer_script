@@ -2,65 +2,37 @@ import pyautogui
 import time
 from pyautogui import ImageNotFoundException
 import keyboard  # 引入库
-from common import confirm_func, find_and_click, find_image
+from common import *
 
 #嘟咕噜带刷塔
 
-monster_location = (965, 530)
-skill1 = (980, 704)
-skill2 = (1097, 704)
-skill3 = (980, 760)
-skill4 = (1097, 760)
-run = (1353, 765)
-switch = (1257, 766)
-third_monster_location = (1025, 684)
-go_out = (847, 786)
-in_tower_my_location = (930, 440)
-move_location = (930, 500)
-shake_location = (930, 430)
-heal_location = (973, 390)
-
-def click(x,y):
-    pyautogui.moveTo(x, y, duration=0.2)
-    pyautogui.mouseDown()
-    time.sleep(0.05)  # 停留一点点
-    pyautogui.mouseUp()
-    print(f"[点击] ({x} {y})")
-
-def do_fight(skill):
+def do_fight(skill, location):
     print(">>> 进入战斗中...")
     c = 0
     # 点击胜利按钮
+    
+    move_and_click_func(monster_location)
+    time.sleep(2)
+
+    move_and_click_func(skill3)
+    time.sleep(2.5)
+    
+    move_and_click_func(skill2)
+    time.sleep(2.5)
+    
+    while not find_image('./ui/switch.png', confidence=0.99):
+        move_and_click_func(switch)
+        time.sleep(0.3)
+
+    move_and_click_func(location)
+    time.sleep(0.3)
+
+    move_and_click_func(go_out)
+    time.sleep(2)
+
     while not find_image("./ui/confirm.png"):
-
-        if keyboard.is_pressed('space'):
-            print("[检测到空格键，脚本终止]")
-            exit(0)  # 或者 return False, 取决于你想退出多彻底
+        move_and_click_func(skill)   
         
-        while not find_and_click("./skills/dugulu/150.png",confidence=0.9999):
-            x = c
-        
-        pyautogui.moveTo(x = 1000, y = 500, duration=0.1)
-        time.sleep(2)
-        while not find_and_click("./skills/dugulu/120.png",confidence=0.9999):
-            x = c  
-        pyautogui.moveTo(x = 1000, y = 500, duration=0.1)
-        time.sleep(2) 
-        
-        while not find_and_click("./ui/go_out.png",confidence=0.99):
-            while not find_and_click("./switch_icon/shanguangpipi.png",confidence=0.8):
-                while not((not find_and_click("./ui/switch.png", confidence=0.999))):
-                    x = c 
-                pyautogui.mouseDown()
-                time.sleep(0.05)  # 停留一点点
-                pyautogui.mouseUp()
-            
-        time.sleep(3)
-        while not find_image("./ui/confirm.png"):
-            find_and_click(skill, confidence=0.9)   
-            pyautogui.moveTo(x = 1000, y = 500, duration=0.1)
-
-
     confirm_func()
 
 def do_all_heal():
@@ -73,9 +45,9 @@ def do_all_heal():
         location = pyautogui.locateCenterOnScreen("./tower_ui/seer2.png", confidence=0.9)
     '''
     while not find_and_click("./tower_ui/heal.png",confidence=0.9):
-        pyautogui.moveTo(in_tower_my_location[0], in_tower_my_location[1], duration=0.1)
-        time.sleep(0.1)
-    
+        move_and_click_func(move_location)
+        pyautogui.moveTo(shake_location[0], shake_location[1], duration=0.1)
+  
     time.sleep(0.5)
     confirm_func()
     print("complete heal")
@@ -97,8 +69,7 @@ def do_all_heal(): ation=0.2)
 
 round = 10
 heal_round = 4
-skill1 = r'./skills/shanguangpipi/120.png'
-skill2 = r'./skills/shanguangpipi/120.png'
+property = 'lightning' #or ground 
 
 def main():
     count = 0
@@ -118,16 +89,29 @@ def main():
         while not find_and_click("./tower_ui/21floor.png", confidence=0.9):
             a = 1
         time.sleep(0.5)
+
+        location = first_monster_location
         
         while count < round:
 
-            click(monster_location[0], monster_location[1])
+            move_and_click_func(monster_location)
             if find_image("./ui/battle_confirm.png", timeout=3):
-                time.sleep(3)  # 等待进入战斗
-                if count == 2:
-                    do_fight(skill2)
+                time.sleep(1.2 )  # 等待进入战斗
+                if property == 'ground':
+                    print("ground")
+                    if count == 2:
+                        do_fight(skill2, location)
+                    else:
+                        do_fight(skill3, location)
+                elif property == 'lightning':
+                    print("lightning and {count}")
+                    if count == 0 or count == 8:
+                        do_fight(skill2, location)
+                    else:
+                        do_fight(skill3, location)
                 else:
-                    do_fight(skill1)
+                    print("normal")
+                    do_fight(skill2, location)
                 count += 1
                 if count % heal_round == 0 or count == round:
                     do_all_heal()
