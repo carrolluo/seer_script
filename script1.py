@@ -7,7 +7,7 @@ def main():
 
     heal_round = 10
 
-    monster = get_all_file_paths('./learning_ability/md/2')
+    monster = get_all_file_paths('./learning_ability/spped')
 
     while True:
 

@@ -90,6 +90,7 @@ def main():
             else:
                 do_run()
 
+        print(f"round: {count}")
         if count % heal_round == 0:
             do_heal()
         print(">>> 一轮完成，准备下一轮...\n")

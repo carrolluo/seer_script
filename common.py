@@ -75,7 +75,7 @@ def find_and_click(images, confidence=0.6, timeout=0.1):
     return False
 
 
-def find_image(images, confidence=0.8, timeout=0.5, region=None):
+def find_image(images, confidence=0.8, timeout=0.1, region=None):
     """
     在屏幕上查找指定图像，支持多图像、多区域查找。
     若设置了 region，将保存该区域的截图方便检查。

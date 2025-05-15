@@ -13,7 +13,7 @@ def do_fight(skill, location):
     
     move_and_click_func(monster_location)
     time.sleep(2)
-
+ 
     move_and_click_func(skill3)
     time.sleep(2.5)
     
@@ -69,7 +69,8 @@ def do_all_heal(): ation=0.2)
 
 round = 10
 heal_round = 4
-property = 'lightning' #or ground 
+property = 'x' #'lightning' #or ground 
+location = second_monster_location
 
 def main():
     count = 0
@@ -89,8 +90,6 @@ def main():
         while not find_and_click("./tower_ui/21floor.png", confidence=0.9):
             a = 1
         time.sleep(0.5)
-
-        location = first_monster_location
         
         while count < round:
 
