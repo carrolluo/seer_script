@@ -5,14 +5,14 @@ import numpy as np
 import mss
 
 
-enemy_hp1_box=(1070, 260, 1095, 290),
-enemy_hp2_box=(1085, 260, 1105, 290),
-enemy_level_box=(1318, 260, 1345, 280)
+enemy_hp1_box=(1070, 260, 1095, 290)
+enemy_hp2_box=(1085, 260, 1105, 290)
+enemy_level_box=(1318, 260, 1355, 290)
 dialogue_box=(520, 680, 760, 790)
 
 def check_detection_regions(
-    enemy_info_box=(1070, 260, 1095, 290),
-    dialogue_box=(520, 680, 760, 790),
+    enemy_info_box=enemy_hp1_box,
+    dialogue_box=enemy_hp2_box,
     save_path='region_check.png'
 ):
     """

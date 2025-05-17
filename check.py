@@ -26,8 +26,8 @@ except ImageNotFoundException:
 '''
 #do_all_heal()
 #   x, y = pyautogui.locateCenterOnScreen('./ui/switch.png',confidence=0.99)
-x,y = 937, 347
-r = 10
+x,y = 1336, 275
+r = 15
 draw.ellipse((x - r, y - r, x + r, y + r), outline="red", width=3)
 pyautogui.moveTo(x, y, duration=0.1)
 pyautogui.mouseDown()

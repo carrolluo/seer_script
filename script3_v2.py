@@ -44,8 +44,9 @@ def do_all_heal():
     if location == None:
         location = pyautogui.locateCenterOnScreen("./tower_ui/seer2.png", confidence=0.9)
     '''
+    move_and_click_func(move_location)
     while not find_and_click("./tower_ui/heal.png",confidence=0.9):
-        move_and_click_func(move_location)
+        pyautogui.moveTo(move_location[0], move_location[1], duration=0.1) 
         pyautogui.moveTo(shake_location[0], shake_location[1], duration=0.1)
   
     time.sleep(0.5)

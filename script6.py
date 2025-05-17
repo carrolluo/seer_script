@@ -38,8 +38,8 @@ def main():
 
     #skill = "./skills/aiwen/70.png"
     
-    monster_name = "乌凯"
-    monster_name_py = "wukai"
+    monster_name = "吉尔"
+    monster_name_py = "jier"
     monster = get_all_file_paths('./learning_ability/'+ monster_name_py)
 
     while True:
@@ -88,7 +88,7 @@ def main():
             #if dialogue:
                 do_catch()
             else:
-                do_run()
+                do_fight()
 
         print(f"round: {count}")
         if count % heal_round == 0:

@@ -22,11 +22,12 @@ second_monster_location = (990, 684)
 first_monster_location = (950, 684)
 go_out = (847, 786)
 in_tower_my_location = (930, 440)
-move_location = (930, 450)
-shake_location = (930, 420)
+move_location = (990, 450)
+shake_location = (990, 465)
 heal_location = (973, 390)
 
-perfect_monster_map = {'火晶兽': {16:68, 17:50}, '尼尔': {16:46}, '加格': {17:52, 18:54}, '查斯': {20:64, 21:66}, '扎克': {16:50}, '乌凯': {10:34, 11:36}}
+perfect_monster_map = {'火晶兽': {16:68, 17:50}, '尼尔': {16:46}, '加格': {17:52, 18:54}, '查斯': {20:64, 21:66}, '扎克': {16:50}, '乌凯': {10:34, 11:36},
+                       '吉尔': {17:45, 18:47}}
 
 def click_func():
     pyautogui.mouseDown()
@@ -215,7 +216,7 @@ def do_catch():
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 enemy_hp1_box=(1070, 260, 1095, 290)
 enemy_hp2_box=(1085, 260, 1105, 290)
-enemy_level_box=(1318, 260, 1345, 280)
+enemy_level_box=(1318, 260, 1355, 290)
 dialogue_box=(520, 680, 760, 790)
 
 def rect_to_region(x):
@@ -281,18 +282,20 @@ def perfect_check(level_roi, hp_roi1, hp_roi2, monster_name):
         flag = True
         true_level = ''
         for j in level_list:
-            if not find_image(get_level(j),confidence=0.95,region=rect_to_region(level_roi)):
+            if not find_image(get_level(j),confidence=0.8,region=rect_to_region(level_roi)):
                 flag = False
                 true_level = ''
             else:
                 true_level += j
+                
         if flag:
             perfect_hp = perfect_monster_map[monster_name][int(true_level)]
             hp1 = str(perfect_hp)[0]
             hp2 = str(perfect_hp)[1]
-            if find_image(get_hp(hp1),confidence=0.8,region=rect_to_region(hp_roi1)):
-                if find_image(get_hp(hp2),confidence=0.8,region=rect_to_region(hp_roi2)):
+            if find_image(get_hp(hp1),confidence=0.7,region=rect_to_region(hp_roi1)):
+                if find_image(get_hp(hp2),confidence=0.7,region=rect_to_region(hp_roi2)):
                     return True
+            break
     return False
 
 def detect_game_text_with_enhancement(
