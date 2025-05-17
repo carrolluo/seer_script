@@ -114,6 +114,38 @@ def find_image(images, confidence=0.8, timeout=0.1, region=None):
     print(f"[识别失败] 无匹配图像: {images}")
     return False
 
+def locate_color_strict_match(image_path, confidence=0.99, region=None):
+    """
+    在屏幕截图中严格匹配带颜色信息的图像。
+
+    :param image_path: 模板图像路径（必须是彩色）
+    :param confidence: 匹配阈值（建议 0.99 以上）
+    :param region: 区域范围 (left, top, width, height)，默认全屏
+    :return: 中心坐标 (x, y) 或 None（如果找不到）
+    """
+
+    # Step 1: 截图并裁剪区域
+    screenshot = pyautogui.screenshot(region=region)
+    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)  # 转为OpenCV BGR
+
+    # Step 2: 读取模板图像
+    template = cv2.imread(image_path)
+    if template is None:
+        raise FileNotFoundError(f"无法加载模板图像: {image_path}")
+
+    # Step 3: 图像匹配
+    result = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+
+    # Step 4: 检查是否超过阈值
+    if max_val >= confidence:
+        template_h, template_w = template.shape[:2]
+        center_x = max_loc[0] + template_w // 2
+        center_y = max_loc[1] + template_h // 2
+        return (center_x, center_y)
+    else:
+        return None
+
 def confirm_func():
     while find_and_click("./ui/confirm.png", timeout=0.02) or find_and_click("./ui/confirm2.png", timeout=0.02) or find_and_click("./ui/confirm3.png", timeout=0.02) or find_and_click("./ui/confirm4.png", timeout=0.02): 
         time.sleep(0.05)

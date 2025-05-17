@@ -18,7 +18,7 @@ second_monster_location = (1025, 684)
 draw = ImageDraw.Draw(screenshot)
 
 try:
-    x, y = pyautogui.locateCenterOnScreen('./ui/grey_capsule.png', confidence=0.95)
+    x, y = locate_color_strict_match(image_path='./ui/grey_capsule.png', confidence=0.99)
 except ImageNotFoundException:
     
     print('error')

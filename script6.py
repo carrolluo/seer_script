@@ -1,7 +1,7 @@
 from common import *
 
 def do_catch():
- 
+    time.sleep(1)
     find_and_click("./skills/bokeer/shouxialiuqing.png",confidence=0.9)
     time.sleep(1)
     pyautogui.mouseDown()
@@ -16,11 +16,11 @@ def do_catch():
     find_and_click("./ui/go_out.png", confidence=0.9)
     time.sleep(3)
 
-    catch_count = 0
+    catch_count = 1
 
     while not find_and_click('./ui/catch_confirm.png', confidence=0.7):
         
-        while not (find_image('./ui/capsule.png', confidence=0.99) or find_image('./ui/grey_capsule.png', confidence=0.95)): 
+        while not (locate_color_strict_match('./ui/capsule.png', confidence=0.99) or locate_color_strict_match('./ui/grey_capsule.png', confidence=0.99)): 
             while not (find_and_click("./ui/prop.png", confidence=0.9) or find_and_click("./ui/prop2.png", confidence=0.9)):
                 if keyboard.is_pressed('space'):
                     print("[检测到空格键，脚本终止]")
@@ -29,16 +29,18 @@ def do_catch():
             pyautogui.mouseDown()
             time.sleep(0.05)  # 停留一点点
             pyautogui.mouseUp()
-        
-        if find_image('./ui/capsule.png', confidence=0.99):
+            time.sleep(1)
+
+        if locate_color_strict_match('./ui/grey_capsule.png', confidence=0.99):
+            find_and_click('./ui/fight.png', confidence=0.99) 
+            do_fight()
+            break
+        else:
             if catch_count % 3 == 0:
                 find_and_click('./ui/middle_capsule.png', confidence=0.99)
             else:
                 find_and_click('./ui/capsule.png', confidence=0.99)
-        else:
-            find_and_click('./ui/fight.png', confidence=0.99)
-            do_fight()
-        time.sleep(0.05)  # 停留一点点
+        time.sleep(5)
     
     catch_count += 1
 
