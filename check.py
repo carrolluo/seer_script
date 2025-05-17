@@ -16,26 +16,27 @@ second_monster_location = (1025, 684)
 
 # 画红圈
 draw = ImageDraw.Draw(screenshot)
-'''
+
 try:
-    x, y = pyautogui.locateCenterOnScreen('./lisa_skill/yelvguangshu.png', confidence=0.999999)
+    x, y = pyautogui.locateCenterOnScreen('./ui/grey_capsule.png', confidence=0.95)
 except ImageNotFoundException:
     
     print('error')
     exit(0)
-'''
+
 #do_all_heal()
-#   x, y = pyautogui.locateCenterOnScreen('./ui/switch.png',confidence=0.99)
-x,y = 1336, 275
+
+#x,y = 1336, 275
 r = 15
 draw.ellipse((x - r, y - r, x + r, y + r), outline="red", width=3)
 pyautogui.moveTo(x, y, duration=0.1)
+'''
 pyautogui.mouseDown()
 time.sleep(0.05)  # 停留一点点
 pyautogui.mouseUp()
 #find_and_click('./ui/go_out.png', confidence = 0.9)
 
-
+'''
 # 保存并查看
 screenshot.save("debug_location.png")
 print(f"已保存位置图：debug_location.png. location: ({x}, {y})")
