@@ -27,7 +27,7 @@ shake_location = (990, 465)
 heal_location = (973, 390)
 
 perfect_monster_map = {'火晶兽': {16:68, 17:50}, '尼尔': {16:46}, '加格': {17:52, 18:54}, '查斯': {20:64, 21:66}, '扎克': {16:50}, '乌凯': {10:34, 11:36},
-                       '吉尔': {17:45, 18:47}}
+                       '吉尔': {17:45, 18:47}, '巴多': {14:40}}
 
 def click_func():
     pyautogui.mouseDown()
@@ -76,7 +76,7 @@ def find_and_click(images, confidence=0.6, timeout=0.1):
     return False
 
 
-def find_image(images, confidence=0.8, timeout=0.1, region=None):
+def find_image(images, confidence=0.8, timeout=0.05, region=None):
     """
     在屏幕上查找指定图像，支持多图像、多区域查找。
     若设置了 region，将保存该区域的截图方便检查。
@@ -148,7 +148,7 @@ def locate_color_strict_match(image_path, confidence=0.99, region=None):
 
 def confirm_func():
     while find_and_click("./ui/confirm.png", timeout=0.02) or find_and_click("./ui/confirm2.png", timeout=0.02) or find_and_click("./ui/confirm3.png", timeout=0.02) or find_and_click("./ui/confirm4.png", timeout=0.02): 
-        time.sleep(0.05)
+        time.sleep(0.02)
 
         if keyboard.is_pressed('space'):
             print("[检测到空格键，脚本终止]")
@@ -178,11 +178,9 @@ def do_run():
         time.sleep(0.2)
         find_and_click("./ui/run.png", confidence=0.95)
         find_and_click("./ui/switch.png", confidence=0.95)
-    time.sleep(2)
-    pyautogui.mouseDown()
-    time.sleep(0.05)  # 停留一点点
-    pyautogui.mouseUp()
-    confirm_func() 
+        
+    time.sleep(1.5)
+    find_and_click("./ui/run_confirm2.png", confidence=0.95)
 
 def do_heal():
     print(">>> 打开背包恢复中...")

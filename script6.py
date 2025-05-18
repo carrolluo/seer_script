@@ -46,7 +46,7 @@ def do_catch():
 
 
 def main():
-    count = 1 
+    count = 1430
 
     heal_round = 10
 
@@ -77,7 +77,7 @@ def main():
             dialogue = monster_info['dialogue']
 
             if percect or dialogue:
-                do_catch()
+                do_run()
             else:
                 do_run()
 
@@ -93,6 +93,19 @@ def main():
             else:
                 do_run()
 
+        elif find_image("./special_monster/baduo.png" ,confidence= 0.95):
+            time.sleep(2)
+
+            monster_info = detect_game_text_with_enhancement(monster_name='巴多',save_debug=True)
+            percect = monster_info['perfect?']
+            dialogue = monster_info['dialogue']
+
+            if percect or dialogue:
+                do_catch()
+            else:
+                #do_run()
+                do_catch()
+
         else:
             monster_info = detect_game_text_with_enhancement(monster_name=monster_name,save_debug=True)
             percect = monster_info['perfect?']
@@ -103,11 +116,13 @@ def main():
             #if 1 == 1:
                 do_catch()
             else:
-                do_fight()
+                #do_fight()
+                do_run()
 
         print(f"round: {count}")
         if count % heal_round == 0:
             do_heal()
+        time.sleep(3)
         print(">>> 一轮完成，准备下一轮...\n")
         count += 1
 
