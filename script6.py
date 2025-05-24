@@ -46,7 +46,7 @@ def do_catch():
 
 
 def main():
-    count = 1430
+    count = 0
 
     heal_round = 10
 
@@ -115,6 +115,7 @@ def main():
             if dialogue:
             #if 1 == 1:
                 do_catch()
+                count = 100860000
             else:
                 #do_fight()
                 do_run()
