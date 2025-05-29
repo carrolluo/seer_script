@@ -3,14 +3,15 @@ from common import *
 def do_catch():
     time.sleep(1)
     find_and_click("./skills/bokeer/shouxialiuqing.png",confidence=0.9)
+    pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
     time.sleep(1)
     pyautogui.mouseDown()
     time.sleep(0.05)  # 停留一点点
     pyautogui.mouseUp()
 
     while not find_and_click("./switch_icon/lisha.png",confidence=0.8):
-        while not((not find_and_click("./ui/switch.png", confidence=0.9)) or (not find_and_click("./ui/switch2.png", confidence=0.999))):
-            x = 1
+        while not((not find_and_click("./ui/switch.png", confidence=0.99)) or (not find_and_click("./ui/switch2.png", confidence=0.999))):
+            pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
             time.sleep(0.2)
         time.sleep(0.2)
     find_and_click("./ui/go_out.png", confidence=0.9)
@@ -55,6 +56,7 @@ def main():
     monster_name = "吉尔"
     monster_name_py = "jier"
     monster = get_all_file_paths('./learning_ability/'+ monster_name_py)
+    monster_in_battle = r'./monster_in_battle/' + monster_name_py
 
     while True:
 
@@ -75,9 +77,9 @@ def main():
             monster_info = detect_game_text_with_enhancement(monster_name='尼尔',save_debug=True)
             percect = monster_info['perfect?']
             dialogue = monster_info['dialogue']
-
-            if percect or dialogue:
-                do_run()
+ 
+            if dialogue:
+                do_catch()
             else:
                 do_run()
 
@@ -93,32 +95,20 @@ def main():
             else:
                 do_run()
 
-        elif find_image("./special_monster/baduo.png" ,confidence= 0.95):
-            time.sleep(2)
-
-            monster_info = detect_game_text_with_enhancement(monster_name='巴多',save_debug=True)
-            percect = monster_info['perfect?']
-            dialogue = monster_info['dialogue']
-
-            if percect or dialogue:
-                do_catch()
-            else:
-                #do_run()
-                do_catch()
-
         else:
             monster_info = detect_game_text_with_enhancement(monster_name=monster_name,save_debug=True)
             percect = monster_info['perfect?']
             dialogue = monster_info['dialogue']
 
-            #if percect or dialogue:
-            if dialogue:
-            #if 1 == 1:
-                do_catch()
-                count = 100860000
-            else:
-                #do_fight()
+            monster_in_battle_file = get_all_file_paths(monster_in_battle)
+
+            if find_image(monster_in_battle_file,confidence=0.99):
                 do_run()
+            else:
+                if find_image('./ui/prop.png', confidence=0.95):
+                    do_catch()
+                else:
+                    do_fight()
 
         print(f"round: {count}")
         if count % heal_round == 0:

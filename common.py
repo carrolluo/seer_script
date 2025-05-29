@@ -12,6 +12,7 @@ import pytesseract
 import datetime
 
 monster_location = (965, 530)
+center_location = (965, 530)
 skill1 = (980, 704)
 skill2 = (1097, 704)
 skill3 = (980, 760)
@@ -57,7 +58,7 @@ def find_and_click(images, confidence=0.6, timeout=0.1):
 
         for image in images:
             try:
-                location = pyautogui.locateCenterOnScreen(image, confidence=confidence)
+                location = locate_color_strict_match(image, confidence=confidence)
             except ImageNotFoundException:
                 location = None
             print(location)
@@ -104,7 +105,7 @@ def find_image(images, confidence=0.8, timeout=0.05, region=None):
 
         for image in images:
             try:
-                location = pyautogui.locateCenterOnScreen(image, confidence=confidence, region=region)
+                location = locate_color_strict_match(image, confidence=confidence, region=region)
                 if location:
                     print(f"[识别成功] {image} → {location}")
                     return location
