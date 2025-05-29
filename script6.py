@@ -52,7 +52,7 @@ def main():
     heal_round = 10
 
     #skill = "./skills/aiwen/70.png"
-    
+    catch_perfect = False
     monster_name = "吉尔"
     monster_name_py = "jier"
     monster = get_all_file_paths('./learning_ability/'+ monster_name_py)
@@ -96,24 +96,31 @@ def main():
                 do_run()
 
         else:
-            monster_info = detect_game_text_with_enhancement(monster_name=monster_name,save_debug=True)
-            percect = monster_info['perfect?']
-            dialogue = monster_info['dialogue']
-
-            monster_in_battle_file = get_all_file_paths(monster_in_battle)
-
-            if find_image(monster_in_battle_file,confidence=0.99):
-                do_run()
-            else:
-                if find_image('./ui/prop.png', confidence=0.95):
+            if catch_perfect:
+                monster_info = detect_game_text_with_enhancement(monster_name=monster_name,save_debug=True)
+                percect = monster_info['perfect?']
+                dialogue = monster_info['dialogue']
+                if percect:
                     do_catch()
                 else:
                     do_fight()
+            
+            else:
+                monster_in_battle_file = get_all_file_paths(monster_in_battle)
+
+                if find_image(monster_in_battle_file,confidence=0.99):
+                    do_run()
+                else:
+                    count += 99900000
+                    if find_image('./ui/prop.png', confidence=0.95):
+                        do_catch()
+                    else:
+                        do_fight()
 
         print(f"round: {count}")
         if count % heal_round == 0:
             do_heal()
-        time.sleep(3)
+        #time.sleep(3)
         print(">>> 一轮完成，准备下一轮...\n")
         count += 1
 
