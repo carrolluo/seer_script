@@ -12,6 +12,7 @@ def do_catch():
     while not find_and_click("./switch_icon/lisha.png",confidence=0.8):
         while not((not find_and_click("./ui/switch.png", confidence=0.8)) or (not find_and_click("./ui/switch2.png", confidence=0.8))):
             pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
+            find_and_click("./ui/fight.png", confidence=0.8)
             time.sleep(0.2)
         time.sleep(0.2)
     find_and_click("./ui/go_out.png", confidence=0.9)
@@ -111,7 +112,7 @@ def main():
             else:
                 monster_in_battle_file = get_all_file_paths(monster_in_battle)
 
-                if find_image(monster_in_battle_file,confidence=0.999,timeout=1):
+                if find_image(monster_in_battle_file,confidence=0.999,timeout=2):
                     do_run()
                 else:
                     count += 99900000
