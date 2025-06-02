@@ -69,6 +69,7 @@ def do_heal():
     else:
         print(">>> 找不到背包按钮，跳过恢复")
 
+
 def main():
     heal_round = 3
     count = 0

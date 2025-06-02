@@ -45,6 +45,8 @@ def do_catch():
     
     catch_count += 1
 
+def print_func(count):
+    print(f"round : {count}")
 
 def main():
     count = 0
@@ -70,6 +72,7 @@ def main():
                 print("[检测到空格键，脚本终止]")  
                 exit(0)  # 或者 return False, 取决于你想退出多彻底
             find_and_click(monster, confidence=0.9) #ex:0.9 #ma: 0.6
+            print_func(count)
             find_and_click("./ui/confirm.png")
         if find_image("./special_monster/nier.png", confidence=0.95): 
             time.sleep(2)
@@ -121,6 +124,7 @@ def main():
         time.sleep(1.5)
         print(">>> 一轮完成，准备下一轮...\n")
         count += 1
+        print_func(count)
 
 if __name__ == "__main__":
     main()
