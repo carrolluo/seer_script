@@ -16,9 +16,12 @@ second_monster_location = (1025, 684)
 
 # 画红圈
 draw = ImageDraw.Draw(screenshot)
-
+monster_in_battle = r'./monster_in_battle/jier' 
+monster_in_battle_file = get_all_file_paths(monster_in_battle)
 try:
-    x, y = locate_color_strict_match(image_path='./ui/grey_capsule.png', confidence=0.99)
+    #x, y = locate_color_strict_match(image_path='./monster_in_battle/jier/jier.png', confidence=0.99)
+    #x, y = find_image(monster_in_battle_file, confidence=0.99)
+    print(find_image(monster_in_battle_file, confidence=0.99))
 except ImageNotFoundException:
     
     print('error')

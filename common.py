@@ -149,7 +149,7 @@ def locate_color_strict_match(image_path, confidence=0.99, region=None):
 
 def confirm_func():
     while find_and_click("./ui/confirm.png", timeout=0.02) or find_and_click("./ui/confirm2.png", timeout=0.02) or find_and_click("./ui/confirm3.png", timeout=0.02) or find_and_click("./ui/confirm4.png", timeout=0.02): 
-        time.sleep(0.02)
+        time.sleep(0.05)
 
         if keyboard.is_pressed('space'):
             print("[检测到空格键，脚本终止]")

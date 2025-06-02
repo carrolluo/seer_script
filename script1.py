@@ -5,9 +5,9 @@ from common import *
 def main():
     count = 1 
 
-    heal_round = 10
+    heal_round = 10 
 
-    monster = get_all_file_paths('./learning_ability/spped')
+    monster = get_all_file_paths('./learning_ability/hp')
 
     while True:
 

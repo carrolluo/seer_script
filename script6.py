@@ -2,7 +2,7 @@ from common import *
 
 def do_catch():
     time.sleep(1)
-    find_and_click("./skills/bokeer/shouxialiuqing.png",confidence=0.9)
+    find_and_click("./skills/bokeer/shouxialiuqing.png",confidence=0.8)
     pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
     time.sleep(1)
     pyautogui.mouseDown()
@@ -10,7 +10,7 @@ def do_catch():
     pyautogui.mouseUp()
 
     while not find_and_click("./switch_icon/lisha.png",confidence=0.8):
-        while not((not find_and_click("./ui/switch.png", confidence=0.99)) or (not find_and_click("./ui/switch2.png", confidence=0.999))):
+        while not((not find_and_click("./ui/switch.png", confidence=0.8)) or (not find_and_click("./ui/switch2.png", confidence=0.8))):
             pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
             time.sleep(0.2)
         time.sleep(0.2)
@@ -54,7 +54,7 @@ def main():
     #skill = "./skills/aiwen/70.png"
     catch_perfect = False
     monster_name = "吉尔"
-    monster_name_py = "jier"
+    monster_name_py = "youfu"
     monster = get_all_file_paths('./learning_ability/'+ monster_name_py)
     monster_in_battle = r'./monster_in_battle/' + monster_name_py
 
@@ -108,19 +108,17 @@ def main():
             else:
                 monster_in_battle_file = get_all_file_paths(monster_in_battle)
 
-                if find_image(monster_in_battle_file,confidence=0.99):
+                if find_image(monster_in_battle_file,confidence=0.999,timeout=1):
                     do_run()
                 else:
                     count += 99900000
                     if find_image('./ui/prop.png', confidence=0.95):
                         do_catch()
                     else:
-                        do_fight()
-
-        print(f"round: {count}")
+                        do_fight()      
         if count % heal_round == 0:
             do_heal()
-        #time.sleep(3)
+        time.sleep(1.5)
         print(">>> 一轮完成，准备下一轮...\n")
         count += 1
 
