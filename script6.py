@@ -10,7 +10,7 @@ def do_catch():
     pyautogui.mouseUp()
 
     while not find_and_click("./switch_icon/lisha.png",confidence=0.8):
-        while not((not find_and_click("./ui/switch.png", confidence=0.8)) or (not find_and_click("./ui/switch2.png", confidence=0.8))):
+        while (not find_and_click("./ui/switch.png", confidence=0.8)):
             pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
             find_and_click("./ui/fight.png", confidence=0.8)
             time.sleep(0.2)
@@ -44,13 +44,13 @@ def do_catch():
                 find_and_click('./ui/capsule.png', confidence=0.99)
         time.sleep(5)
     
-    catch_count += 1
+        catch_count += 1
 
 def print_func(count):
     print(f"round : {count}")
 
 def main():
-    count = 0
+    count = 13661
 
     heal_round = 10
 
@@ -112,8 +112,9 @@ def main():
             else:
                 monster_in_battle_file = get_all_file_paths(monster_in_battle)
 
-                if find_image(monster_in_battle_file,confidence=0.999,timeout=2):
+                if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
                     do_run()
+                    #do_catch()
                 else:
                     count += 99900000
                     if find_image('./ui/prop.png', confidence=0.95):
