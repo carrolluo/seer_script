@@ -16,7 +16,7 @@ second_monster_location = (1025, 684)
 
 # 画红圈
 draw = ImageDraw.Draw(screenshot)
-monster_in_battle = r'./monster_in_battle/jier' 
+monster_in_battle = r'./monster_in_battle/youfu' 
 monster_in_battle_file = get_all_file_paths(monster_in_battle)
 try:
     #x, y = locate_color_strict_match(image_path='./monster_in_battle/jier/jier.png', confidence=0.99)
@@ -29,7 +29,7 @@ except ImageNotFoundException:
 
 #do_all_heal()
 
-#x,y = 1336, 275
+x,y = 1336, 275
 r = 15
 draw.ellipse((x - r, y - r, x + r, y + r), outline="red", width=3)
 pyautogui.moveTo(x, y, duration=0.1)

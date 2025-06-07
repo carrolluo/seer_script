@@ -46,6 +46,8 @@ def do_catch():
     
         catch_count += 1
 
+
+
 def print_func(count):
     print(f"round : {count}")
 
@@ -54,12 +56,8 @@ def main():
 
     heal_round = 10
 
-    #skill = "./skills/aiwen/70.png"
-    catch_perfect = False
-    monster_name = "吉尔"
     monster_name_py = "youfu"
     monster = get_all_file_paths('./learning_ability/'+ monster_name_py)
-    monster_in_battle = r'./monster_in_battle/' + monster_name_py
 
     while True:
 
@@ -75,52 +73,7 @@ def main():
             find_and_click(monster, confidence=0.9) #ex:0.9 #ma: 0.6
             print_func(count)
             find_and_click("./ui/confirm.png")
-        if find_image("./special_monster/nier.png", confidence=0.95): 
-            time.sleep(2)
-
-            monster_info = detect_game_text_with_enhancement(monster_name='尼尔',save_debug=True)
-            percect = monster_info['perfect?']
-            dialogue = monster_info['dialogue']
- 
-            if dialogue:
-                do_catch()
-            else:
-                do_run()
-
-        elif find_image("./special_monster/zhake.png" ,confidence= 0.95):
-            time.sleep(2)
-
-            monster_info = detect_game_text_with_enhancement(monster_name='扎克',save_debug=True)
-            percect = monster_info['perfect?']
-            dialogue = monster_info['dialogue']
-
-            if percect or dialogue:
-                do_catch()
-            else:
-                do_run()
-
-        else:
-            if catch_perfect:
-                monster_info = detect_game_text_with_enhancement(monster_name=monster_name,save_debug=True)
-                percect = monster_info['perfect?']
-                dialogue = monster_info['dialogue']
-                if percect:
-                    do_catch()
-                else:
-                    do_fight()
-            
-            else:
-                monster_in_battle_file = get_all_file_paths(monster_in_battle)
-
-                if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
-                    do_run()
-                    #do_catch()
-                else:
-                    count += 99900000
-                    if find_image('./ui/prop.png', confidence=0.95):
-                        do_catch()
-                    else:
-                        do_fight()      
+        count = catch_if(monster_name_py, count)
         if count % heal_round == 0:
             do_heal()
         time.sleep(1.5)

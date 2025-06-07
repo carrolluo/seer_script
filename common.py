@@ -382,3 +382,37 @@ def check_variant(dialogue):
         return True
     else:
         return False
+    
+def catch_if(monster, count):
+    if find_image("./special_monster/nier.png", confidence=0.95): 
+        time.sleep(2)
+        monster_in_battle = r'./monster_in_battle/nier'
+        monster_in_battle_file = get_all_file_paths(monster_in_battle)
+        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+            do_run()
+        else:
+            count += 299900000
+            do_catch()
+           
+    elif find_image("./special_monster/zhake.png" ,confidence= 0.95):
+        time.sleep(2)
+        monster_in_battle = r'./monster_in_battle/zhake' 
+        monster_in_battle_file = get_all_file_paths(monster_in_battle)
+        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+            do_run()
+        else:
+            count += 199900000
+            do_catch()
+
+    else:
+        monster_in_battle = r'./monster_in_battle/' + monster
+        monster_in_battle_file = get_all_file_paths(monster_in_battle)
+        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+            do_run()
+        else:
+            count += 99900000
+            if find_image('./ui/prop.png', confidence=0.95):
+                do_catch()
+            else:
+                do_fight()      
+    return count
