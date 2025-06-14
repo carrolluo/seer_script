@@ -1,14 +1,9 @@
 from common import *
 
-#普通刷怪        
+#刷学习力
 
 def main():
-    count = 1 
-
-    heal_round = 10 
-
-    monster = get_all_file_paths('./learning_ability/hp')
-
+    global count
     while True:
 
         if keyboard.is_pressed('space'):
@@ -20,32 +15,33 @@ def main():
             if keyboard.is_pressed('space'):                
                 print("[检测到空格键，脚本终止]")  
                 exit(0)  # 或者 return False, 取决于你想退出多彻底
-            find_and_click(monster, confidence=0.9) #ex:0.9 #ma: 0.6
+            if find_and_click(monster_outside, confidence=0.9): #ex:0.9 #ma: 0.6
+                mark = 0
+            elif find_color_and_click(monster_color, tolerance=2):
+                mark = 1
+            print_func(count)
+            time.sleep(1)
+            find_and_click("./ui/x.png", confidence=0.99)
             find_and_click("./ui/confirm.png")
-            find_and_click("./ui/x.png", confidence=0.9)
-
-        if check_variant(detect_dialogue_text_with_enhancement(save_debug=False)['dialogue']):
-            time.sleep(2)
+        if mark == 0:
+            count += catch_if(monster, count, "fight")
+        elif mark == 1:
             do_catch()
-        else:
-            if find_image("./special_monster/nier.png", confidence=0.95): 
-                time.sleep(2)
-                do_run()
-            elif find_image("./special_monster/zhake.png" ,confidence=0.95):
-                time.sleep(2)
-                do_catch()
-                #do_run()
-            else:
-                #do_catch()
-                do_fight()
-        print(f"round {count}")
+
         if count % heal_round == 0:
             do_heal()
-        if count == 1000:
-            break
+        time.sleep(1.5)
         print(">>> 一轮完成，准备下一轮...\n")
         count += 1
-        
+        print_func(count)
 
 if __name__ == "__main__":
+    count = 0
+    monster_dc_map = {"jier" : "#ffdd0a", "luojilasi" : "#ffdd0a", "jidongshou": "#ffde7d", "dinglute": "#d9d9e8", "yiyasi": "#ffa2ff", 
+                      "chaerdun": "#26448f", "xisaliula": "#80edff", "huojingshou" : "#9a70f7"}
+    monster = "xisaliula"
+    heal_round = 10
+    monster_outside = get_all_file_paths(r"./monster/" + monster + r"/outside")
+    monster_color = monster_dc_map[monster]
+
     main()

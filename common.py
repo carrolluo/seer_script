@@ -115,7 +115,7 @@ def find_image(images, confidence=0.8, timeout=0.05, region=None):
     print(f"[识别失败] 无匹配图像: {images}")
     return False
 
-def locate_color_strict_match(image_path, confidence=0.99, region=None):
+def locate_color_strict_match(image_path, confidence=0.99, region=(0,0,1441,821)):
     """
     在屏幕截图中严格匹配带颜色信息的图像。
 
@@ -207,42 +207,50 @@ def get_all_file_paths(folder_path):
     return all_files
 
 def do_catch():
+    time.sleep(2)
     while not find_and_click("./switch_icon/bokeer.png",confidence=0.8):
-        while not((not find_and_click("./ui/switch.png", confidence=0.9)) or (not find_and_click("./ui/switch2.png", confidence=0.999))):
-            x = 1
+        while not find_and_click("./ui/switch.png", confidence=0.9):
+            find_and_click("./ui/fight.png", confidence=0.9)
             time.sleep(0.2)
         time.sleep(0.2)
     find_and_click("./ui/go_out.png", confidence=0.9)
-    time.sleep(3)
+    time.sleep(4)
  
-    find_and_click("./skills/bokeer/shouxialiuqing.png",confidence=0.9)
+    move_and_click_func(skill4)
+    pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
     time.sleep(1)
     pyautogui.mouseDown()
     time.sleep(0.05)  # 停留一点点
     pyautogui.mouseUp()
 
-    while not find_and_click("./switch_icon/lisha.png",confidence=0.8):
-        while not((not find_and_click("./ui/switch.png", confidence=0.9)) or (not find_and_click("./ui/switch2.png", confidence=0.999))):
-            x = 1
-            time.sleep(0.2)
-        time.sleep(0.2)
-    find_and_click("./ui/go_out.png", confidence=0.9)
-    time.sleep(3)
+    catch_count = 1
 
     while not find_and_click('./ui/catch_confirm.png', confidence=0.7):
-        while not find_and_click('./ui/capsule.png', confidence=0.99): 
-            while not (find_and_click("./ui/prop.png", confidence=0.99) or find_and_click("./ui/prop2.png", confidence=0.99)):
+        
+        while not (locate_color_strict_match('./ui/capsule.png', confidence=0.99) or locate_color_strict_match('./ui/grey_capsule.png', confidence=0.98)): 
+            while not (find_and_click("./ui/prop.png", confidence=0.9)):
                 if keyboard.is_pressed('space'):
                     print("[检测到空格键，脚本终止]")
                     exit(0)  # 或者 return False, 取决于你想退出多彻底
+                find_and_click("./ui/switch.png", confidence=0.9)
                 time.sleep(0.2)
             pyautogui.mouseDown()
             time.sleep(0.05)  # 停留一点点
             pyautogui.mouseUp()
-        pyautogui.mouseDown()
-        time.sleep(0.05)  # 停留一点点
-        pyautogui.mouseUp()
+            time.sleep(1)
+
+        if locate_color_strict_match('./ui/grey_capsule.png', confidence=0.99):
+            find_and_click('./ui/fight.png', confidence=0.9) 
+            do_fight()
+            break
+        else:
+            if catch_count % 3 == 0:
+                find_and_click('./ui/middle_capsule.png', confidence=0.99)
+            else:
+                find_and_click('./ui/capsule.png', confidence=0.99)
         time.sleep(5)
+    
+        catch_count += 1
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 enemy_hp1_box=(1070, 260, 1095, 290)
@@ -383,32 +391,38 @@ def check_variant(dialogue):
     else:
         return False
     
-def catch_if(monster, count):
+def catch_if(monster, count, action):
     if find_image("./special_monster/nier.png", confidence=0.95): 
         time.sleep(2)
-        monster_in_battle = r'./monster_in_battle/nier'
+        monster_in_battle = r'./monster/nier/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
-            do_run()
-        else:
+        if not find_image(monster_in_battle_file,confidence=0.999,timeout=3):
             count += 299900000
             do_catch()
+        else:
+            if find_image('./ui/nier46/' + monster + '.png',confidence=0.99,timeout=3):
+                do_catch()
+            else:
+                do_run() 
            
     elif find_image("./special_monster/zhake.png" ,confidence= 0.95):
         time.sleep(2)
-        monster_in_battle = r'./monster_in_battle/zhake' 
+        monster_in_battle = r'./monster/zhake/in_battle' 
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
         if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
             do_run()
         else:
-            count += 199900000
+            count += 10000000
             do_catch()
 
     else:
-        monster_in_battle = r'./monster_in_battle/' + monster
+        monster_in_battle = r'./monster/' + monster + r'/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
         if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
-            do_run()
+            if action == "fight":
+                do_fight()
+            else:
+                do_run()
         else:
             count += 99900000
             if find_image('./ui/prop.png', confidence=0.95):
@@ -416,3 +430,50 @@ def catch_if(monster, count):
             else:
                 do_fight()      
     return count
+
+def hex_to_rgb(hex_color):
+    """
+    将 "#RRGGBB" 转换为 (R, G, B)
+    """
+    hex_color = hex_color.lstrip('#')
+    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+
+
+def find_color(hex_rgb, tolerance=20, region=(0,0,1441,821)):
+    """
+    查找屏幕上是否有指定颜色（不点击）
+    - hex_rgb: "#RRGGBB" 字符串格式
+    - tolerance: 容许的颜色误差
+    - region: 截图区域 (left, top, width, height)，可选
+    - return: (x, y) 或 None
+    """
+    target_rgb = hex_to_rgb(hex_rgb)
+    screenshot = pyautogui.screenshot(region=region)
+    img = np.array(screenshot)  # (H, W, 3), RGB
+
+    lower = np.clip(np.array(target_rgb) - tolerance, 0, 255)
+    upper = np.clip(np.array(target_rgb) + tolerance, 0, 255)
+
+    mask = cv2.inRange(img, lower, upper)
+    coords = cv2.findNonZero(mask)
+
+    if coords is not None:
+        x, y = coords[0][0]
+        return (x, y)
+    else:
+        return None
+
+
+def find_color_and_click(hex_rgb, tolerance=20, region=(0,0,1441,821)):
+    """
+    查找颜色并点击
+    """
+    location = find_color(hex_rgb, tolerance=tolerance, region=region)
+    if location:
+        pyautogui.moveTo(location[0], location[1], duration=0.2)
+        pyautogui.click()
+        return location
+    return None
+
+def print_func(count):
+    print(f"round : {count}")

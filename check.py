@@ -1,8 +1,7 @@
 from PIL import ImageDraw
 import pyautogui
-from pyautogui import ImageNotFoundException
-from script2 import do_run, find_and_click
-from script3 import do_all_heal
+from pyautogui import ImageNotFoundException    
+
 from common import *
 
 # 截全屏
@@ -16,12 +15,13 @@ second_monster_location = (1025, 684)
 
 # 画红圈
 draw = ImageDraw.Draw(screenshot)
-monster_in_battle = r'./monster_in_battle/youfu' 
+monster_in_battle = r'./monster/huojingshou/outside' 
 monster_in_battle_file = get_all_file_paths(monster_in_battle)
 try:
     #x, y = locate_color_strict_match(image_path='./monster_in_battle/jier/jier.png', confidence=0.99)
     #x, y = find_image(monster_in_battle_file, confidence=0.99)
-    print(find_image(monster_in_battle_file, confidence=0.99))
+    
+    x,y = find_image(monster_in_battle_file, confidence=0.9)
 except ImageNotFoundException:
     
     print('error')
@@ -29,7 +29,6 @@ except ImageNotFoundException:
 
 #do_all_heal()
 
-x,y = 1336, 275
 r = 15
 draw.ellipse((x - r, y - r, x + r, y + r), outline="red", width=3)
 pyautogui.moveTo(x, y, duration=0.1)

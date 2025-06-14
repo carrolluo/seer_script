@@ -75,8 +75,7 @@ def catch_if(monster, count):
                 do_fight()      
     return count 
 
-def print_func(count):
-    print(f"round : {count}")
+
 
 def main():
     count = 13039
