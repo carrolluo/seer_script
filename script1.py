@@ -21,7 +21,8 @@ def main():
                 mark = 1
             print_func(count)
             time.sleep(1)
-            find_and_click("./ui/x.png", confidence=0.99)
+            find_and_click("./ui/nono_x.png", confidence=0.99)
+            find_and_click("./ui/self_x.png", confidence=0.99)
             find_and_click("./ui/confirm.png")
         if mark == 0:
             count += catch_if(monster, count, "fight")
