@@ -7,7 +7,7 @@ skill2 = (1097, 704)
 skill3 = (980, 760)
 skill4 = (1097, 760)
 
-skill_order = [[3,2,2], [2,2,3], [3,2,3], [3,2,3], [3,2,3], [2,2,3], [3,2,3], [2,2,3], [2,2,3]]
+skill_order = [[3,2,2], [2,2,3], [3,2,3,3], [3,2,3], [3,2,3], [2,2,3], [3,2,3], [2,2,3], [2,2,3,3]]
 
 def click_skill(x):
     if x == 1:
@@ -30,12 +30,22 @@ def do_fight(order):
         if keyboard.is_pressed('space'):
             print("[检测到空格键，脚本终止]")
             exit(0)  # 或者 return False, 取决于你想退出多彻底
-        click_skill(order[0])
-        time.sleep(3.3)
-        click_skill(order[1])
-        time.sleep(3.3)
-        click_skill(order[2])
-        time.sleep(4.5)
+        if len(order) == 4:
+            click_skill(order[0])
+            time.sleep(4.5)
+            click_skill(order[1])
+            time.sleep(3.3)
+            click_skill(order[2])
+            time.sleep(3.3)
+            click_skill(order[3])
+            time.sleep(4.5)
+        else:
+            click_skill(order[0])
+            time.sleep(3.3)
+            click_skill(order[1])
+            time.sleep(3.3)
+            click_skill(order[2])
+            time.sleep(4.5)
 
     confirm_func()
 
