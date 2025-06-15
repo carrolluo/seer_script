@@ -393,20 +393,20 @@ def check_variant(dialogue):
     
 def catch_if(monster, count, action):
     if find_image("./special_monster/nier.png", confidence=0.95): 
-        time.sleep(2)
+        time.sleep(1)
         monster_in_battle = r'./monster/nier/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
         if not find_image(monster_in_battle_file,confidence=0.999,timeout=3):
             count += 299900000
             do_catch()
         else:
-            if find_image('./ui/nier46/' + monster + '.png',confidence=0.99,timeout=3):
+            if find_image('./ui/nier46/' + monster + '.png',confidence=0.99):
                 do_catch()
             else:
                 do_run() 
            
     elif find_image("./special_monster/zhake.png" ,confidence= 0.95):
-        time.sleep(2)
+        time.sleep(1)
         monster_in_battle = r'./monster/zhake/in_battle' 
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
         if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
