@@ -6,7 +6,7 @@ from common import *
 
 # 截全屏
 screenshot = pyautogui.screenshot()
-
+        
 enemy_hp1_box=(1070, 260, 1095, 290)
 enemy_hp2_box=(1085 + 2, 260, 1105 - 2, 290)
 enemy_level_box=(1318, 260, 1345, 280)

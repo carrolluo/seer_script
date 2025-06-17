@@ -207,15 +207,6 @@ def get_all_file_paths(folder_path):
     return all_files
 
 def do_catch():
-    time.sleep(2)
-    while not find_and_click("./switch_icon/bokeer.png",confidence=0.8):
-        while not find_and_click("./ui/switch.png", confidence=0.9):
-            find_and_click("./ui/fight.png", confidence=0.9)
-            time.sleep(0.2)
-        time.sleep(0.2)
-    find_and_click("./ui/go_out.png", confidence=0.9)
-    time.sleep(4)
- 
     move_and_click_func(skill4)
     pyautogui.moveTo(center_location[0], center_location[1], duration=0.1)
     time.sleep(1)
@@ -390,7 +381,17 @@ def check_variant(dialogue):
         return True
     else:
         return False
-    
+
+def switch_pipi():
+    time.sleep(2)
+    while not find_and_click("./switch_icon/shanguangpipi.png",confidence=0.8):
+        while not find_and_click("./ui/switch.png", confidence=0.9):
+            find_and_click("./ui/fight.png", confidence=0.9)
+            time.sleep(0.2)
+        time.sleep(0.2)
+    find_and_click("./ui/go_out.png", confidence=0.9)
+    time.sleep(4)
+
 def catch_if(monster, count, action):
     if find_image("./special_monster/nier.png", confidence=0.95): 
         time.sleep(1)
@@ -398,8 +399,10 @@ def catch_if(monster, count, action):
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
         if not find_image(monster_in_battle_file,confidence=0.999,timeout=3):
             count += 299900000
+            switch_pipi()
             do_catch()
         else:
+            switch_pipi()
             if find_image('./ui/nier46/' + monster + '.png',confidence=0.99):
                 do_catch()
             else:
@@ -410,15 +413,17 @@ def catch_if(monster, count, action):
         monster_in_battle = r'./monster/zhake/in_battle' 
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
         if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
-            do_run()
+            switch_pipi()
+            do_catch()
         else:
             count += 10000000
+            switch_pipi()
             do_catch()
 
     else:
         monster_in_battle = r'./monster/' + monster + r'/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+        if find_image(monster_in_battle_file,confidence=0.95,timeout=3):
             if action == "fight":
                 do_fight()
             else:
@@ -426,6 +431,7 @@ def catch_if(monster, count, action):
         else:
             count += 99900000
             if find_image('./ui/prop.png', confidence=0.95):
+                switch_pipi()
                 do_catch()
             else:
                 do_fight()      
@@ -472,6 +478,7 @@ def find_color_and_click(hex_rgb, tolerance=20, region=(0,0,1441,821)):
     if location:
         pyautogui.moveTo(location[0], location[1], duration=0.2)
         pyautogui.click()
+        print("find_color")
         return location
     return None
 

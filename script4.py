@@ -68,7 +68,7 @@ def catch_if(monster, count, action):
     else:
         monster_in_battle = r'./monster/' + monster + r'/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+        if find_image(monster_in_battle_file,confidence=0.99,timeout=3):
             if action == "fight":
                 do_fight()
             else:
@@ -105,10 +105,10 @@ def main():
             find_and_click("./ui/ex_x.png", confidence=0.9)
             find_and_click("./ui/confirm.png")
         if mark == 0:
-            count = catch_if(monster, count, "fight")
+            count = catch_if(monster, count, "run")
         elif mark == 1:
             do_catch()
-
+        mark = 0
         if count % heal_round == 0:
             do_heal()
         time.sleep(1.5)
