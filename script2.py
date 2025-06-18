@@ -92,7 +92,7 @@ def main():
         while not find_and_click("./tower_ui/enter.png", confidence=0.65):
             a = 1
         time.sleep(1)
-        while not find_and_click("./tower_ui/choose_floor.png", confidence=0.65):
+        while not find_and_click("./tower_ui/choose_floor.png", confidence=0.65):          
             a = 1
         time.sleep(1)
         while not find_and_click("./tower_ui/31floor.png", confidence=0.9):
