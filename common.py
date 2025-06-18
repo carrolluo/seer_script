@@ -397,7 +397,7 @@ def catch_if(monster, count, action):
         time.sleep(1)
         monster_in_battle = r'./monster/nier/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if not find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+        if not find_image(monster_in_battle_file,confidence=0.95,timeout=3):
             count += 299900000
             switch_pipi()
             do_catch()
@@ -412,7 +412,7 @@ def catch_if(monster, count, action):
         time.sleep(1)
         monster_in_battle = r'./monster/zhake/in_battle' 
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+        if find_image(monster_in_battle_file,confidence=0.95,timeout=3):
             switch_pipi()
             do_catch()
         else:
@@ -430,11 +430,8 @@ def catch_if(monster, count, action):
                 do_run()
         else:
             count += 99900000
-            if find_image('./ui/prop.png', confidence=0.95):
-                switch_pipi()
-                do_catch()
-            else:
-                do_fight()      
+            switch_pipi()
+            do_catch()  
     return count
 
 def hex_to_rgb(hex_color):

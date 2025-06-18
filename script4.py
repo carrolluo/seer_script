@@ -46,7 +46,7 @@ def catch_if(monster, count, action):
         time.sleep(1)
         monster_in_battle = r'./monster/nier/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if not find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+        if not find_image(monster_in_battle_file,confidence=0.95,timeout=3):
             count += 299900000
             do_catch()
         else:
@@ -59,7 +59,7 @@ def catch_if(monster, count, action):
         time.sleep(1)
         monster_in_battle = r'./monster/zhake/in_battle' 
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if find_image(monster_in_battle_file,confidence=0.999,timeout=3):
+        if find_image(monster_in_battle_file,confidence=0.95,timeout=3):
             do_catch()
         else:
             count += 10000000
@@ -68,17 +68,14 @@ def catch_if(monster, count, action):
     else:
         monster_in_battle = r'./monster/' + monster + r'/in_battle'
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
-        if find_image(monster_in_battle_file,confidence=0.99,timeout=3):
+        if find_image(monster_in_battle_file,confidence=0.95,timeout=3):
             if action == "fight":
                 do_fight()
             else:
                 do_run()
         else:
             count += 99900000
-            if find_image('./ui/prop.png', confidence=0.95):
-                do_catch()
-            else:
-                do_fight()      
+            do_catch()     
     return count
 
 def main():
