@@ -102,7 +102,8 @@ def main():
             find_and_click("./ui/ex_x.png", confidence=0.9)
             find_and_click("./ui/confirm.png")
         if mark == 0:
-            count = catch_if(monster, count, "run")
+            #count = catch_if(monster, count, "run")
+            count = catch_if(monster, count, "fight")
         elif mark == 1:
             do_catch()
         mark = 0
@@ -118,7 +119,8 @@ if __name__ == "__main__":
     heal_round = 10
     monster_dc_map = {"jier" : "#ffdd0a", "luojilasi" : "#ffdd0a", "jidongshou": "#ffde7d", "dinglute": "#d9d9e8", "yiyasi": "#ffa2ff", 
                       "chaerdun": "#26448f", "xisaliula": "#80edff", "huojingshou" : "#9a70f7"}
-    monster = "jier"
+    #monster = "jier"
+    monster = "huojingshou"
     monster_outside = get_all_file_paths(r"./monster/" + monster + r"/outside")           
     monster_color = monster_dc_map[monster]
 

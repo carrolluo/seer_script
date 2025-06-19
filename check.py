@@ -6,7 +6,7 @@ from common import *
 
 # 截全屏
 screenshot = pyautogui.screenshot()
-        
+
 enemy_hp1_box=(1070, 260, 1095, 290)
 enemy_hp2_box=(1085 + 2, 260, 1105 - 2, 290)
 enemy_level_box=(1318, 260, 1345, 280)
@@ -15,7 +15,7 @@ second_monster_location = (1025, 684)
 
 # 画红圈
 draw = ImageDraw.Draw(screenshot)
-monster_in_battle = r'./monster/nier/in_battle' 
+monster_in_battle = r'D:\files\vscode_files\game\skills\bokeer' 
 monster_in_battle_file = get_all_file_paths(monster_in_battle)
 try:
     #x, y = locate_color_strict_match(image_path='./monster_in_battle/jier/jier.png', confidence=0.99)
