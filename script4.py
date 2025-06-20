@@ -70,7 +70,7 @@ def catch_if(monster, count, action):
         monster_in_battle_file = get_all_file_paths(monster_in_battle)
         if find_image(monster_in_battle_file,confidence=0.95,timeout=3):
             if action == "fight":
-                do_fight()
+                do_catch()
             else:
                 do_run()
         else:
