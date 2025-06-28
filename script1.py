@@ -42,7 +42,7 @@ if __name__ == "__main__":
     count = 0
     monster_dc_map = {"jier" : "#ffdd0a", "luojilasi" : "#ffdd0a", "jidongshou": "#ffde7d", "dinglute": "#c5d2e4", "yiyasi": "#ffa2ff", 
                       "chaerdun": "#26448f", "xisaliula": "#80edff", "huojingshou" : "#9a70f7"}
-    monster = "xisaliula"
+    monster = "jidongshou"
     heal_round = 5
     monster_outside = get_all_file_paths(r"./monster/" + monster + r"/outside")
     monster_color = monster_dc_map[monster]

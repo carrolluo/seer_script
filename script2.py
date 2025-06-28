@@ -4,7 +4,7 @@ from common import *
 monster_location = (965, 530)
 
 
-skill_order = [[3,2,2], [2,2,3], [3,2,3,3], [3,2,3], [3,2,3], [2,2,3], [3,2,3], [2,2,3], [2,2,3]]
+skill_order = [[1,1,1], [1,2,4], [4,2,1,4], [4,4,4], [4,4,4], [1,2,4], [1,2,4], [4,4,4], [2,4,4], [4,1,1]]
 
 def click_skill(x):
     if x == 1:
@@ -13,7 +13,7 @@ def click_skill(x):
         move_and_click_func(skill2)
     elif x == 3:
         move_and_click_func(skill3)
-    elif x == 3:
+    elif x == 4:
         move_and_click_func(skill4)
     else:
         print('error')
@@ -77,7 +77,7 @@ def do_heal():
         print(">>> 找不到背包按钮，跳过恢复")
 
 def main():
-    heal_round = 3
+    heal_round = 10
     count = 0
     while True:
         
@@ -96,7 +96,7 @@ def main():
             a = 1
         time.sleep(0.5)
         
-        while count < 9: 
+        while count < 10: 
 
             move_and_click_func(monster_location)
             if find_image("./ui/battle_confirm.png", timeout=3):
@@ -104,7 +104,7 @@ def main():
 
                 do_fight(skill_order[count])
                 count += 1
-                if count % heal_round == 0 or count == 9:
+                if count % heal_round == 0 or count == 10:
                     do_heal()
                 
                 print(">>> 一轮完成，准备下一轮...\n")
