@@ -30,6 +30,9 @@ heal_location = (973, 390)
 perfect_monster_map = {'火晶兽': {16:68, 17:50}, '尼尔': {16:46}, '加格': {17:52, 18:54}, '查斯': {20:64, 21:66}, '扎克': {16:50}, '乌凯': {10:34, 11:36},
                        '吉尔': {17:45, 18:47}, '巴多': {14:40}}
 
+monster_dc_map = {"jier" : "#ffdd0a", "luojilasi" : "#ffdd0a", "jidongshou": "#ffde7d", "dinglute": "#d9d9e8", "yiyasi": "#ffa2ff", 
+                      "chaerdun": "#26448f", "xisaliula": "#80edff", "huojingshou" : "#9a70f7", "lubi" : "#682cc7"}
+
 def click_func():
     pyautogui.mouseDown()
     time.sleep(0.05)  # 停留一点点

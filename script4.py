@@ -91,8 +91,12 @@ def main():
             if keyboard.is_pressed('space'):                
                 print("[检测到空格键，脚本终止]")  
                 exit(0)  # 或者 return False, 取决于你想退出多彻底
-            if find_and_click(monster_outside, confidence=0.9): #ex:0.9 #ma: 0.6
-                mark = 0
+            if find_image(monster_outside, confidence=0.9): #ex:0.9 #ma: 0.6
+                if find_color_and_click(monster_color, tolerance=2):
+                    mark = 1
+                else:
+                    mark = 0
+                    find_and_click(monster_outside, confidence=0.9)
             elif find_color_and_click(monster_color, tolerance=2):
                 mark = 1
             print_func(count)
@@ -117,8 +121,6 @@ def main():
 if __name__ == "__main__":
     count = 0
     heal_round = 10
-    monster_dc_map = {"jier" : "#ffdd0a", "luojilasi" : "#ffdd0a", "jidongshou": "#ffde7d", "dinglute": "#d9d9e8", "yiyasi": "#ffa2ff", 
-                      "chaerdun": "#26448f", "xisaliula": "#80edff", "huojingshou" : "#9a70f7"}
     #monster = "jier"
     monster = "huojingshou"
     monster_outside = get_all_file_paths(r"./monster/" + monster + r"/outside")           
