@@ -118,7 +118,7 @@ def find_image(images, confidence=0.8, timeout=0.05, region=None):
     print(f"[识别失败] 无匹配图像: {images}")
     return False
 
-def locate_color_strict_match(image_path, confidence=0.99, region=(0,0,1441,821)):
+def locate_color_strict_match(image_path, confidence=0.99, region=(0,0,1441,850)):
     """
     在屏幕截图中严格匹配带颜色信息的图像。
 
@@ -188,7 +188,7 @@ def do_run():
 
 def do_heal():
     print(">>> 打开背包恢复中...")
-    if find_and_click("./ui/bag.png"):
+    if find_and_click("./ui/bag.png", confidence=0.8):
         time.sleep(0.5)
         if find_and_click("./ui/heal.png", confidence=0.8):
             time.sleep(0.5)
@@ -445,7 +445,7 @@ def hex_to_rgb(hex_color):
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
 
-def find_color(hex_rgb, tolerance=20, region=(0,0,1441,821)):
+def find_color(hex_rgb, tolerance=20, region=(0,0,1441,850)):
     """
     查找屏幕上是否有指定颜色（不点击）
     - hex_rgb: "#RRGGBB" 字符串格式
@@ -470,7 +470,7 @@ def find_color(hex_rgb, tolerance=20, region=(0,0,1441,821)):
         return None
 
 
-def find_color_and_click(hex_rgb, tolerance=20, region=(0,0,1441,821)):
+def find_color_and_click(hex_rgb, tolerance=20, region=(0,0,1441,850)):
     """
     查找颜色并点击
     """

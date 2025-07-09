@@ -4,12 +4,12 @@ from common import *
 monster_location = (965, 530)
 
 
-skill_order = [[1,1,1], [1,2,4], [4,2,1,4], [4,4,4], [4,4,4], [1,2,4], [1,2,4], [4,4,4], [2,4,4], [4,1,1]]
-
+skill_order = [[1,1,1], [1,2,4], [4,2,1,4], [4,4,4], [4,4,4], [1,2,4], [1,2,4], [4,4,4], [2,4,4], [4,1,1,1]]
+ 
 def click_skill(x):
     if x == 1:
         move_and_click_func(skill1)
-    elif x == 2:
+    elif x == 2:   
         move_and_click_func(skill2)
     elif x == 3:
         move_and_click_func(skill3)
@@ -99,7 +99,7 @@ def main():
         while count < 10: 
 
             move_and_click_func(monster_location)
-            if find_image("./ui/battle_confirm.png", timeout=3):
+            if find_image("./ui/hp.png", timeout=3):
                 time.sleep(3)  # 等待进入战斗
 
                 do_fight(skill_order[count])
