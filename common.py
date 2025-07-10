@@ -30,9 +30,6 @@ heal_location = (973, 390)
 perfect_monster_map = {'火晶兽': {16:68, 17:50}, '尼尔': {16:46}, '加格': {17:52, 18:54}, '查斯': {20:64, 21:66}, '扎克': {16:50}, '乌凯': {10:34, 11:36},
                        '吉尔': {17:45, 18:47}, '巴多': {14:40}}
 
-monster_dc_map = {"jier" : "#ffdd0a", "luojilasi" : "#ffdd0a", "jidongshou": "#ffde7d", "dinglute": "#d9d9e8", "yiyasi": "#ffa2ff", 
-                      "chaerdun": "#26448f", "xisaliula": "#80edff", "huojingshou" : "#9a70f7", "lubi" : "#682cc7"}
-
 def click_func():
     pyautogui.mouseDown()
     time.sleep(0.05)  # 停留一点点
@@ -118,7 +115,7 @@ def find_image(images, confidence=0.8, timeout=0.05, region=None):
     print(f"[识别失败] 无匹配图像: {images}")
     return False
 
-def locate_color_strict_match(image_path, confidence=0.99, region=(0,0,1441,850)):
+def locate_color_strict_match(image_path, confidence=0.99, region=(0,0,1441,821)):
     """
     在屏幕截图中严格匹配带颜色信息的图像。
 
@@ -188,7 +185,7 @@ def do_run():
 
 def do_heal():
     print(">>> 打开背包恢复中...")
-    if find_and_click("./ui/bag.png", confidence=0.8):
+    if find_and_click("./ui/bag.png"):
         time.sleep(0.5)
         if find_and_click("./ui/heal.png", confidence=0.8):
             time.sleep(0.5)
@@ -445,7 +442,7 @@ def hex_to_rgb(hex_color):
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
 
-def find_color(hex_rgb, tolerance=20, region=(0,0,1441,850)):
+def find_color(hex_rgb, tolerance=20, region=(0,0,1441,821)):
     """
     查找屏幕上是否有指定颜色（不点击）
     - hex_rgb: "#RRGGBB" 字符串格式
@@ -470,7 +467,7 @@ def find_color(hex_rgb, tolerance=20, region=(0,0,1441,850)):
         return None
 
 
-def find_color_and_click(hex_rgb, tolerance=20, region=(0,0,1441,850)):
+def find_color_and_click(hex_rgb, tolerance=20, region=(0,0,1441,821)):
     """
     查找颜色并点击
     """
