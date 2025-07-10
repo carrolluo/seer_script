@@ -75,12 +75,13 @@ def catch_if(monster, count, action):
                 do_run()
         else:
             count += 99900000
+            time.sleep(0.5)
             do_catch()     
     return count
 
 def main():
     global count
-    while True:
+    while True:        
 
         if keyboard.is_pressed('space'):
             print("[检测到空格键，脚本终止]")  
